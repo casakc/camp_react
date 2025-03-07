@@ -1,0 +1,31 @@
+.App, .container {
+  
+  margin: 20px;
+  padding: 0px;
+  text-align: center;
+  width: 900 px;
+}
+
+.App {
+  background-color: black;
+}
+
+
+.App-header {
+  
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+
+
+.App-link {
+  color: #61dafb;
+}
+
+
