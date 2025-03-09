@@ -1,4 +1,12 @@
 .AppSubheader {
-    background-color: red;
+    background-color: white;
+    color: #0556A5;
     margin: 20px;
+    padding: 20px;
+}
+
+.AppSubheader h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    margin: 2px;
 }

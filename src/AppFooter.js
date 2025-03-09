@@ -1,6 +1,5 @@
 import React from "react";
 import "./AppFooter.css";
-import logo from './Zettel, Logo1.jpg';
 
 
 export default function AppFooter () {

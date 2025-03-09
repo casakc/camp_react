@@ -1,18 +1,19 @@
 import React from 'react';
-import logo from './Zettel, Logo1.jpg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AppHeader from './AppHeader';
 import AppSubheader from './AppSubheader';
 import AppBody from './AppBody';
 import AppFooter from './AppFooter';
+import Navbar from './Navbar';
 
 function App() {
   return (
     
     <div className="App">
       <div className='container'>
-      <AppHeader />
+       <AppHeader />
+      <Navbar />
       <AppSubheader />
       <AppBody />
       <AppFooter />
