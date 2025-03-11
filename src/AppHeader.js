@@ -1,6 +1,6 @@
 import React from "react";
 import "./AppHeader.css";
-import logo from './Zettel, Logo1.jpg';
+import logo from './cAMP.svg';
 
 export default function AppHeader () {
     return (
