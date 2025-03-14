@@ -1,12 +1,11 @@
 .App, .container {
+  background-color: #a6a7a9;
+  border-radius: 5px;
   padding: 0px;
   text-align: center;
   width: 900 px;
 }
 
-.App {
-  background-color: black;
-}
 
 
 .App-header {

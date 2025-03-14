@@ -1,6 +1,8 @@
 .AppBody {
     background-color: white;
-    margin: 20px;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
     padding: 20px;
 }
 

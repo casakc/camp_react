@@ -1,6 +1,16 @@
 .navbar {
-    margin: 20px;
+    border-radius: 5px;
+    margin: 10px 20px;
 }
+
+.navbar.navbar-expand-lg.navbar-light.bg-light {
+    background-color: #ffffff !important;
+}
+
+.navbar-toggler {
+    margin-left: 20px ;
+}
+
 
 .navbar-nav .nav-link {
     color: #0056A5;

@@ -1,7 +1,9 @@
 .AppSubheader {
     background-color: white;
+    border-radius: 5px;
     color: #0556A5;
-    margin: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
     padding: 20px;
 }
 
