@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Navbar.css';
 
@@ -12,19 +13,19 @@ function Navbar() {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item active">
-            <a className="nav-link" href="home">Home<span className="sr-only"></span></a>
+            <Link className="nav-link" to="/">Home<span className="sr-only"></span></Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="aktuelles">Aktuelles</a>
+            <Link className="nav-link" to="/aktuelles">Aktuelle Frage/Antwort</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="Bi2T">Biologie in 2 Tagen</a>
+            <Link className="nav-link" to="/Bi2T">Biologie in 2 Tagen</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="HGi2T">Humangenetik in 2 Tagen</a>
+            <Link className="nav-link" to="/HGi2T">Humangenetik in 2 Tagen</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="Kontakt">Kontakt</a>
+            <Link className="nav-link" to="/Kontakt">Kontakt</Link>
           </li>
           {/*<li className="nav-item">
             <a className="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
@@ -36,3 +37,7 @@ function Navbar() {
 }
 
 export default Navbar;
+
+
+
+

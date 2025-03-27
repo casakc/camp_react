@@ -1,0 +1,55 @@
+.AktuellesBody {
+    background-color: white;
+    border-radius: 5px;
+    height: 300px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 20px;
+}
+
+.blue {
+    color: #0556A5;
+}
+
+.red {
+    color: red;
+}
+
+.btn {
+border-radius: 20px;
+background-color: #A6A7A9;
+color: white;
+}
+
+.btn:hover {
+    background-color: white;
+    color: #A6A7A9;
+}
+
+.h2, .h3, .row {
+    margin: 0px;
+    padding: 20px;
+}
+
+.AktuellesBody h1, .AktuellesBody p {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 10px 20px;
+    padding: 5px;
+}
+
+
+.AktuellesBody .row {
+margin: 10px 20px;
+}
+
+.AktuellesBody h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    margin: 2px;
+}
+
+.AktuellesBody h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    margin: 2px;
+}
