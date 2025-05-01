@@ -1,12 +1,9 @@
 {
   "name": "camp_react",
   "version": "0.1.0",
-
-"engines": {
-  "node": "18.17.0"
-},
-
-
+  "engines": {
+    "node": "18.17.0"
+  },
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
@@ -19,7 +16,7 @@
     "react-dom": "^19.0.0",
     "react-helmet": "^6.1.0",
     "react-helmet-async": "^2.0.5",
-    "react-router-dom": "^7.4.0",
+    "react-router-dom": "6",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.0"
   },
