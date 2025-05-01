@@ -1,6 +1,12 @@
 {
   "name": "camp_react",
   "version": "0.1.0",
+
+"engines": {
+  "node": "18.17.0"
+},
+
+
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
