@@ -12,10 +12,12 @@ import pandas as pd
 app = Flask(__name__)
 CORS(app)
 
-# Load the data once
-FILE_PATH = r"E:\UK\cAMP\camp_react\src\Medical.ods"
+
+FILE_PATH = "src/Medical.ods"  # Caminho relativo
 questions_data = pd.read_excel(FILE_PATH, sheet_name='Medical', engine='odf')
-answers_data = pd.read_excel(FILE_PATH, sheet_name='Medical', engine='odf')
+
+
+
 
 # Convert the columns to lists
 questions_list = questions_data['Question'].tolist()
