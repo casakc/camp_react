@@ -19,7 +19,9 @@ FILE_PATH = os.path.join(os.path.dirname(__file__), "src/Medical.ods")
 
 try:
     questions_data = pd.read_excel(FILE_PATH, sheet_name="Medical", engine="odf")
-    answers_data = pd.read_excel(FILE_PATH, sheet_name="Medical", engine="odf")  # Fixed missing definition
+    answers_data = pd.read_excel(
+    FILE_PATH,sheet_name="Medical",engine="odf") # Fixed missing definition
+
 except FileNotFoundError as exc:
     raise RuntimeError(f"Error: File not found at {FILE_PATH}") from exc
 
