@@ -83,5 +83,6 @@ def get_random_answer():
 
 # Start Server with Waitress
 if __name__ == '__main__':
-    PORT = int(os.getenv("PORT", 5000))  # Dynamically assign Render's port
+    PORT = int(os.getenv("PORT", "5000"))  # Default as a string
+  # Dynamically assign Render's port
     serve(app, host="0.0.0.0", port=PORT)
