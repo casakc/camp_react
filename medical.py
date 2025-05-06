@@ -2,7 +2,7 @@
 Flask API that serves random medical questions and answers.
 Ensures questions and answers are displayed randomly but only once per cycle before restarting.
 """
-import time
+
 import random
 import os
 import pandas as pd
@@ -19,69 +19,60 @@ FILE_PATH = os.path.join(os.path.dirname(__file__), "src/Medical.ods")
 
 try:
     questions_data = pd.read_excel(FILE_PATH, sheet_name="Medical", engine="odf")
-    answers_data = pd.read_excel(
-    FILE_PATH,sheet_name="Medical",engine="odf") # Fixed missing definition
+    answers_data = pd.read_excel(FILE_PATH, sheet_name="Medical", engine="odf")
+
+    # Ensure IDs are included
+    questions_list = questions_data[["ID", "Question"]].to_dict(orient="records")
+    answers_list = answers_data[["ID", "Answer"]].to_dict(orient="records")
 
 except FileNotFoundError as exc:
     raise RuntimeError(f"Error: File not found at {FILE_PATH}") from exc
 
-
-# Convert dataset columns to lists
-questions_list = questions_data["Question"].tolist()
-answers_list = answers_data["Answer"].tolist()
-
 # QuestionManager Class
 class QuestionManager:
-    """Manages random medical questions without repetition until a cycle completes."""
+    """Manages random medical questions without repetition."""
     def __init__(self):
-        self.remaining_questions = []
-        self.current_question = None
-        self.last_updated = 0
+        self.remaining_ids = [q["ID"] for q in questions_list]  # Store IDs
 
-    def get_question(self):
-        """Retrieves the next random question, reshuffling when needed."""
-        current_time = time.time()
-        if current_time - self.last_updated > 20 or self.current_question is None:
-            if not self.remaining_questions:
-                self.remaining_questions = questions_list.copy()
-                random.shuffle(self.remaining_questions)
-            self.current_question = self.remaining_questions.pop()
-            self.last_updated = current_time
-        return self.current_question
+    def get_random_question(self):
+        """Retrieves a question using a random ID."""
+        if not self.remaining_ids:  # Reset when exhausted
+            self.remaining_ids = [q["ID"] for q in questions_list]
+
+        selected_id = random.choice(self.remaining_ids)
+        self.remaining_ids.remove(selected_id)
+
+        question = next(q for q in questions_list if q["ID"] == selected_id)
+        return question
+
 
 # AnswerManager Class
 class AnswerManager:
-    """Manages random medical answers without repetition until a cycle completes."""
-    def __init__(self):
-        self.remaining_answers = []
-        self.current_answer = None
-        self.last_updated = 0
-
-    def get_answer(self):
-        """Retrieves the next random answer, reshuffling when needed."""
-        current_time = time.time()
-        if current_time - self.last_updated > 20 or self.current_answer is None:
-            if not self.remaining_answers:
-                self.remaining_answers = answers_list.copy()
-                random.shuffle(self.remaining_answers)
-            self.current_answer = self.remaining_answers.pop()
-            self.last_updated = current_time
-        return self.current_answer
+    """Manages answers using the same randomly selected ID."""
+    def get_answer(self, question_id):
+        """Retrieves the answer that matches the given question ID."""
+        answer = next((a for a in answers_list if a["ID"] == question_id), None)
+        if answer is None:
+            return {"error": f"No answer found for question ID {question_id}"}
+        return answer
 
 # Instantiate managers
 question_manager = QuestionManager()
 answer_manager = AnswerManager()
 
 # Flask Routes
-@app.route('/random-question', methods=['GET'])
-def get_random_question():
-    """API endpoint to return a random question."""
-    return jsonify({'question': question_manager.get_question()})
+@app.route('/random-pair', methods=['GET'])
+def get_random_pair():
+    """Returns a question-answer pair based on a randomly selected ID."""
+    question_data = question_manager.get_random_question()
+    answer_data = answer_manager.get_answer(question_data["ID"])
 
-@app.route('/random-answer', methods=['GET'])
-def get_random_answer():
-    """API endpoint to return a random answer."""
-    return jsonify({'answer': answer_manager.get_answer()})
+    return jsonify({
+        "id": question_data["ID"],
+        "question": question_data["Question"],
+        "answer": answer_data["Answer"]
+    })
+
 
 # Start Server with Waitress
 if __name__ == '__main__':
