@@ -2,7 +2,7 @@
 Flask API that serves random medical questions and answers.
 Ensures questions and answers are displayed randomly but only once per cycle before restarting.
 """
-
+import time
 import random
 import os
 import pandas as pd
@@ -24,6 +24,13 @@ try:
     # Ensure IDs are included
     questions_list = questions_data[["ID", "Question"]].to_dict(orient="records")
     answers_list = answers_data[["ID", "Answer"]].to_dict(orient="records")
+      
+    #Validate dataset columns before processing
+    expected_columns = {"ID", "Question", "Answer"}
+    missing_columns = expected_columns - set(questions_data.columns)
+
+    if missing_columns:
+        raise RuntimeError(f"Missing required columns: {missing_columns}")
 
 except FileNotFoundError as exc:
     raise RuntimeError(f"Error: File not found at {FILE_PATH}") from exc
@@ -60,19 +67,24 @@ class AnswerManager:
 question_manager = QuestionManager()
 answer_manager = AnswerManager()
 
-# Flask Routes
-@app.route('/random-pair', methods=['GET'])
-def get_random_pair():
-    """Returns a question-answer pair based on a randomly selected ID."""
+# Flask Routes for separate Question and Answer retrieval
+@app.route('/random-question', methods=['GET'])
+def get_random_question():
+    """Returns only a randomly selected question."""
     question_data = question_manager.get_random_question()
-    answer_data = answer_manager.get_answer(question_data["ID"])
-
     return jsonify({
         "id": question_data["ID"],
-        "question": question_data["Question"],
-        "answer": answer_data["Answer"]
+        "question": question_data["Question"]
     })
 
+@app.route('/answer/<int:question_id>', methods=['GET'])
+def get_answer(question_id):
+    """Returns the answer for a given question ID."""
+    answer_data = answer_manager.get_answer(question_id)
+    return jsonify({
+        "id": question_id,
+        "answer": answer_data["Answer"] if "Answer" in answer_data else None
+    })
 
 # Start Server with Waitress
 if __name__ == '__main__':
