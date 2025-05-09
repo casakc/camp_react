@@ -7,7 +7,7 @@ const RandomQuestion = () => {
 
   const fetchQuestion = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/random-question");
+      const response = await axios.get("https://camp-react.onrender.com/random-question");
       setQuestion(response.data.question);
       setError(""); // Clear any previous error
     } catch (err) {

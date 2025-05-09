@@ -2,7 +2,7 @@
 Flask API that serves random medical questions and answers.
 Ensures questions and answers are displayed randomly but only once per cycle before restarting.
 """
-import time
+
 import random
 import os
 import pandas as pd
@@ -24,7 +24,6 @@ try:
     # Ensure IDs are included
     questions_list = questions_data[["ID", "Question"]].to_dict(orient="records")
     answers_list = answers_data[["ID", "Answer"]].to_dict(orient="records")
-      
     #Validate dataset columns before processing
     expected_columns = {"ID", "Question", "Answer"}
     missing_columns = expected_columns - set(questions_data.columns)
