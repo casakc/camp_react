@@ -12,7 +12,7 @@ export default function Home() {
   return (
      <div className="Home">
       <Helmet>
-              <title>cAMP - Willkommen!</title>
+              <title>cAMP - Herzlich Willkommen!</title>
               <meta name="description" content="This is an example page." />
             </Helmet>
       <div className='container'>
