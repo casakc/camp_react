@@ -19,6 +19,7 @@ export default function HomeBody () {
           <div className="col-3"></div>
         
         </div>
+        <Link to="/about">Learn more</Link> {/* Add Link if relevant */}
 </div>
 
     )
