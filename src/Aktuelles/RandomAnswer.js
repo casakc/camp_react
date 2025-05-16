@@ -46,8 +46,6 @@ useEffect(() => {
 
   useEffect(() => {
     if (questionId) {
-      console.log("Fetching answer for Question ID:", questionId);
-      console.log("fetchAnswer function reference:", fetchAnswer); // Debugging function reference
       fetchAnswer();
     }
   }, [questionId, fetchAnswer]); // Include fetchAnswer here
