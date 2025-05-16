@@ -7,7 +7,7 @@ import AktuellesAnswer from "./Aktuelles/AktuellesAnswer";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/aktuelles" element={<Aktuelles />} />

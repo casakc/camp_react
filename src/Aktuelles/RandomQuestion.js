@@ -20,8 +20,8 @@ const RandomQuestion = () => {
     // Fetch the question when the component mounts
     fetchQuestion();
 
-    // Set an interval to fetch the question every 20 seconds
-    const interval = setInterval(fetchQuestion, 20000);
+    // Set an interval to fetch the question every 30 seconds
+    const interval = setInterval(fetchQuestion, 30000);
 
     // Cleanup the interval when the component unmounts
     return () => clearInterval(interval);

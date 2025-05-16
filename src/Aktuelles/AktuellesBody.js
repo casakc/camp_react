@@ -28,7 +28,6 @@ const AktuellesBody = () => {
         
         </div>  
     
-
 </div>
           </div>
 
