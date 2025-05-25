@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import RandomQuestion from "./RandomQuestion.js";
 import { useNavigate } from "react-router-dom";
 import "./AktuellesBody.css";
@@ -37,4 +37,31 @@ const AktuellesBody = () => {
   );
 };
 
+export default AktuellesBody;*/
+
+import React from "react";
+import RandomQuestion from "./RandomQuestion.js";
+import { useNavigate } from "react-router-dom";
+import "./AktuellesBody.css";
+
+const AktuellesBody = ({ setQuestionId }) => {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate("/answer"); // Navigate after clicking
+  };
+
+  return (
+    <div className="AktuellesBody">
+      <div className="AktuellesBody-container">
+        <RandomQuestion setQuestionId={setQuestionId} /> {/* Pass function */}
+        <button className="btn" onClick={handleButtonClick}>
+          Antwort des Tages
+        </button>
+      </div>
+    </div>
+  );
+};
+
 export default AktuellesBody;
+
