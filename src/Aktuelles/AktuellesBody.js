@@ -1,60 +1,28 @@
-/*import React from "react";
-import RandomQuestion from "./RandomQuestion.js";
-import { useNavigate } from "react-router-dom";
-import "./AktuellesBody.css";
-
-const AktuellesBody = () => {
-  const navigate = useNavigate();
-
-  const handleButtonClick = () => {
-    navigate("/answer");
-  };
-
-  return (
-    <div className="AktuellesBody">
-
-      <div className="AktuellesBody-container">
-
-      <RandomQuestion />
-        
-        <div className="row">
-          <div className="col-3"></div>
-          <div className="col-6">
-          <div className="btn" onClick={handleButtonClick}>
-        Antwort des Tages
-     </div>
-     </div>
-          <div className="col-3"></div>
-        
-        </div>  
-    
-</div>
-          </div>
-
-      
-      
-    
-  );
-};
-
-export default AktuellesBody;*/
-
-import React from "react";
+import React, { useState } from "react";
 import RandomQuestion from "./RandomQuestion.js";
 import { useNavigate } from "react-router-dom";
 import "./AktuellesBody.css";
 
 const AktuellesBody = ({ setQuestionId }) => {
   const navigate = useNavigate();
+  const [questionId, setLocalQuestionId] = useState(null);  // ✅ Store question ID locally
 
   const handleButtonClick = () => {
-    navigate("/answer"); // Navigate after clicking
+    if (questionId) {
+      navigate(`/answer/${questionId}`); // ✅ Navigate using the stored ID
+    } else {
+      console.error("Question ID is undefined!"); // Debugging log
+    }
   };
 
   return (
     <div className="AktuellesBody">
       <div className="AktuellesBody-container">
-        <RandomQuestion setQuestionId={setQuestionId} /> {/* Pass function */}
+        <RandomQuestion setQuestionId={(id) => { 
+          setQuestionId(id);  // ✅ Update global question ID
+          setLocalQuestionId(id); // ✅ Store locally for button click
+        }} />  
+        
         <button className="btn" onClick={handleButtonClick}>
           Antwort des Tages
         </button>
@@ -64,4 +32,3 @@ const AktuellesBody = ({ setQuestionId }) => {
 };
 
 export default AktuellesBody;
-

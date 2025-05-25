@@ -1,55 +1,29 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useCallback } from "react";
+import { useParams } from "react-router-dom";  // Import URL params hook
 
 const RandomAnswer = () => {
-  const [answer, setAnswer] = useState(""); // Stores the fetched answer
+  const { questionId } = useParams();  // Extract questionId from URL
+  console.log(`🔎 Extracted question ID: ${questionId}`);  // ✅ Debugging Log
+
+  const [answer, setAnswer] = useState(""); // Stores fetched answer
   const [error, setError] = useState("");   // Stores errors
-  const [questionId, setQuestionId] = useState(null); // Stores question ID
-
-  const fetchAnswer = useCallback(async () => {
-    try {
-      if (!questionId) return;
-      const response = await axios.get(`https://camp-react.onrender.com/answer/${questionId}`);
-      setAnswer(response.data.answer);
-      setError(""); 
-    } catch (err) {
-      setError("Failed to fetch answer. Please try again.");
-      console.error("Fetch Answer Error:", err);
-    }
-  }, [questionId]);
-  
-
-  const fetchQuestionId = async () => {
-  try {
-    const response = await axios.get("https://camp-react.onrender.com/random-question");
-    setTimeout(() => setQuestionId(response.data.id), 500); // Small delay to stabilize updates
-  } catch (err) {
-    setError("Failed to fetch question ID. Please try again.");
-    console.error(err);
-  }
-};
-
-
-useEffect(() => {
-  fetchQuestionId(); // First, fetch the latest question ID
-
-  const interval = setInterval(() => {
-    fetchQuestionId(); // Fetch a new question every 30 seconds
-    setTimeout(fetchAnswer, 500); // Fetch answer after 0.5 sec delay
-  }, 30000); // Refresh cycle every 30 sec
-
-  return () => clearInterval(interval);
-}, [fetchAnswer]); // Include fetchAnswer here
-
-  
 
   useEffect(() => {
-    if (questionId) {
-      fetchAnswer();
-    }
-  }, [questionId, fetchAnswer]); // Include fetchAnswer here
-   
+    const fetchAnswer = async () => {
+      try {
+        if (!questionId) return;  // Prevent unnecessary calls
+        const response = await axios.get(`https://camp-react.onrender.com/answer/${questionId}`);
+        setAnswer(response.data.answer);
+      } catch (err) {
+        setError("Failed to fetch answer.");
+        console.error("Fetch Answer Error:", err);
+      }
+    };
+
+    fetchAnswer();
+  }, [questionId]); // ✅ Fetch only when questionId updates
+
   return (
     <div>
       <h1>Antwort des Tages</h1>

@@ -8,7 +8,7 @@ import AktuellesBody from './AktuellesBody';
 import AktuellesFooter from './AktuellesFooter';
 import Navbar from '../Navbar';
 
-export default function Aktuelles() {
+export default function Aktuelles({ setQuestionId }) {
   return (
        <div className="Aktuelles">
     <Helmet>
@@ -19,7 +19,7 @@ export default function Aktuelles() {
        <AktuellesHeader />
       <Navbar />
       <AktuellesSubheader />
-      <AktuellesBody />
+      <AktuellesBody setQuestionId={setQuestionId} /> {/* Forward prop */}
       <AktuellesFooter />
  </div>
 </div>

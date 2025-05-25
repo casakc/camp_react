@@ -39,7 +39,8 @@ class QuestionManager:
     """Manages random medical questions without repetition."""
     def __init__(self):
         self.remaining_ids = [q["ID"] for q in questions_list]  # Store IDs
-
+        self.last_question_id = None
+           
     def get_random_question(self):
         """Retrieves a question using a random ID."""
         if not self.remaining_ids:  # Reset when exhausted
@@ -48,40 +49,36 @@ class QuestionManager:
         selected_id = random.choice(self.remaining_ids)
         self.remaining_ids.remove(selected_id)
 
+        self.last_question_id = selected_id  # Store ID persistently
         question = next(q for q in questions_list if q["ID"] == selected_id)
-        return question
-
+        return question 
 
 # AnswerManager Class
 class AnswerManager:
-    """Manages answers using the same randomly selected ID."""
-    def get_answer(self, question_id):
-        """Retrieves the answer that matches the given question ID."""
+    """Manages answers using the same randomly selected question ID."""
+    def get_answer(self, question_id):  # ✅ Ensure function correctly receives an argument
+        """Retrieves an answer that matches the provided question ID."""
         answer = next((a for a in answers_list if a["ID"] == question_id), None)
-        if answer is None:
-            return {"error": f"No answer found for question ID {question_id}"}
-        return answer
+        return answer if answer else {"error": f"No answer found for ID {question_id}"}
+
 
 # Instantiate managers
 question_manager = QuestionManager()
 answer_manager = AnswerManager()
 
-# Flask Routes for separate Question and Answer retrieval
-@app.route('/random-question', methods=['GET'])
-def get_random_question():
-    """Returns only a randomly selected question."""
+# Flask Routes for Question and Answer retrieval
+@app.route('/random-question-answer', methods=['GET'])
+def get_random_question_answer():
+    """Returns a randomly selected question with its correct answer."""
     question_data = question_manager.get_random_question()
-    return jsonify({
-        "id": question_data["ID"],
-        "question": question_data["Question"]
-    })
-
-@app.route('/answer/<int:question_id>', methods=['GET'])
-def get_answer(question_id):
-    """Returns the answer for a given question ID."""
+    question_id = question_data["ID"]
+    
+    # Fetch the correct answer using the same question ID
     answer_data = answer_manager.get_answer(question_id)
+
     return jsonify({
         "id": question_id,
+        "question": question_data["Question"],
         "answer": answer_data["Answer"] if "Answer" in answer_data else None
     })
 
