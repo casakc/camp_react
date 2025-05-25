@@ -5,7 +5,7 @@ import Aktuelles from "./Aktuelles/Aktuelles";
 import AktuellesAnswer from "./Aktuelles/AktuellesAnswer"; 
 
 const App = () => {
-  const [questionId, setQuestionId] = useState(null); // Store question ID globally
+  /*const [questionId, setQuestionId] = useState(null); // Store question ID globally*/
 
   return (
     <BrowserRouter basename="/">
