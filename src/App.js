@@ -11,7 +11,7 @@ const App = () => {
     <BrowserRouter basename="/">
       <Routes>
         <Route path="/" element={<Home />} />  {/* ✅ Home Page */}
-        <Route path="/aktuelles" element={<Aktuelles setQuestionId={setQuestionId} />} />
+        <Route path="/aktuelles" element={<Aktuelles setQuestionId={setQuestionId} questionId={questionId} />} />
         <Route path="/answer/:questionId" element={<AktuellesAnswer />} />
       </Routes>
     </BrowserRouter>
@@ -19,4 +19,8 @@ const App = () => {
 };
 
 export default App;
+
+
+
+
 

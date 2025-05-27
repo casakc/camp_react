@@ -32,3 +32,8 @@ const AktuellesBody = ({ setQuestionId }) => {
 };
 
 export default AktuellesBody;
+
+
+
+
+
