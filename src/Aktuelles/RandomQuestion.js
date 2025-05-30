@@ -6,31 +6,29 @@ const RandomQuestion = ({ setQuestionId }) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-  const fetchQuestion = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/random-question");
-      setQuestion(response.data.question);
+    const fetchQuestion = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/random-question");
 
-      // Check before calling setQuestionId
-      if (typeof setQuestionId === "function") {
-        setQuestionId(response.data.id);
-      } else {
-        console.error("setQuestionId is undefined or not a function");
+        if (!response.data || !response.data.Question) {
+          return;
+        }
+
+        setQuestion(response.data.Question);  // ✅ Stores question
+        setQuestionId(response.data.ID);      // ✅ Sends ID to AktuellesBody
+
+      } catch (err) {
+        setError("⚠️ Failed to load question!");
       }
-    } catch (err) {
-      setError("Failed to fetch question.");
-      console.error(err);
-    }
-  };
+    };
 
-  fetchQuestion();
-}, [setQuestionId]);
-
+    fetchQuestion();  // ✅ Call fetch function inside `useEffect`
+  }, [setQuestionId]);
 
   return (
     <div>
       <h1>Frage des Tages</h1>
-      {error ? <p style={{ color: "red" }}>{error}</p> : <p>{question}</p>}
+      {error ? <p style={{ color: "red" }}>{error}</p> : <p>{question || "❌ Frage nicht geladen!"}</p>}
     </div>
   );
 };

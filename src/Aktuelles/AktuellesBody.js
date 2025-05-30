@@ -11,7 +11,7 @@ const AktuellesBody = ({ setQuestionId }) => {
     if (questionId) {
       navigate(`/answer/${questionId}`); // ✅ Navigate using the stored ID
     } else {
-      console.error("Question ID is undefined!"); // Debugging log
+      console.error("🚨 Question ID is undefined!");
     }
   };
 
@@ -32,8 +32,3 @@ const AktuellesBody = ({ setQuestionId }) => {
 };
 
 export default AktuellesBody;
-
-
-
-
-
