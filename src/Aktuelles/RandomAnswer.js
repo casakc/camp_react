@@ -11,7 +11,7 @@ const RandomAnswer = () => {
     const fetchAnswer = async () => {
       try {
         if (!questionId) return;  // Prevent unnecessary calls
-        const response = await axios.get(`http://localhost:5000/answer/${questionId}`);
+        const response = await axios.get(`https://camp-react.onrender.com/random-question/${questionId}`);
       setAnswer(response.data.Answer);
     
       } catch (err) {

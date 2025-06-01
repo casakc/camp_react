@@ -8,7 +8,7 @@ const RandomQuestion = ({ setQuestionId }) => {
   useEffect(() => {
     const fetchQuestion = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/random-question");
+        const response = await axios.get("https://camp-react.onrender.com/random-question");
 
         if (!response.data || !response.data.Question) {
           return;

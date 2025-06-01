@@ -93,5 +93,5 @@ def get_answer(question_id):
     return jsonify(answer_data)
 
 if __name__ == "__main__":
-    PORT = int(os.getenv("PORT", "5000"))  # Default port
+    PORT = int(os.getenv("PORT", "10000"))  # Default port
     serve(app, host="0.0.0.0", port=PORT)
