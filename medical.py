@@ -1,14 +1,10 @@
-"""
-Flask API for serving random medical questions and answers.
-
+"""Flask API for serving random medical questions and answers.
 This API ensures questions are displayed randomly but only once per cycle before restarting.
-It also retrieves corresponding answers based on a question's unique ID.
-
-"""
+It also retrieves corresponding answers based on a question's unique ID."""
 import os
 import random
 import pandas as pd
-from flask import Flask, send_from_directory, jsonify
+from flask import Flask, send_from_directory, jsonify  # ✅ Fix missing import
 from flask_cors import CORS
 from waitress import serve
 
@@ -63,20 +59,16 @@ question_manager = QuestionManager()
 answer_manager = AnswerManager()
 
 # Serve React frontend
-@app.route("/")
-def serve_react_app():
-    """Serves the React frontend from the 'build' directory."""
-    return send_from_directory("build", "index.html")
-
 @app.route("/aktuelles")
 def serve_aktuelles():
     """Serves the React page for Aktuelles."""
-    return send_from_directory("build", "index.html")
+    return send_from_directory(app.static_folder, "index.html")
 
 @app.route("/<path:path>")
 def serve_static_files(path):
-    """Serves static files (JS, CSS, images) from the React build directory."""
-    return send_from_directory("build", path)
+    """Serves static files (JS, CSS, images) from React's build directory."""
+    print(f"🔍 Request received for static file: {path}")  # Debugging output
+    return send_from_directory(app.static_folder, path)
 
 # ✅ Add missing API route for fetching a random question
 @app.route("/random-question", methods=["GET"])
@@ -92,6 +84,16 @@ def get_answer(question_id):
     answer_data = answer_manager.get_answer(question_id)
     return jsonify(answer_data)
 
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def serve_react():
+    """Serves React frontend for all non-API requests."""
+    return send_from_directory(app.static_folder, "index.html")
+
+#if __name__ == "__main__":
+    #PORT = int(os.getenv("PORT", "10000"))  # Default port
+    #serve(app, host="0.0.0.0", port=PORT)#
+    
 if __name__ == "__main__":
-    PORT = int(os.getenv("PORT", "10000"))  # Default port
+    PORT = int(os.environ.get("PORT", "8080"))  # Use Render-assigned port
     serve(app, host="0.0.0.0", port=PORT)
