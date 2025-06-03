@@ -3,13 +3,20 @@ This API ensures questions are displayed randomly but only once per cycle before
 It also retrieves corresponding answers based on a question's unique ID."""
 import os
 import random
-import pandas as pd
-from flask import Flask, send_from_directory, jsonify  # ✅ Fix missing import
+from flask import Flask, send_from_directory, jsonify
 from flask_cors import CORS
 from waitress import serve
+import pandas as pd
 
-app = Flask(__name__, static_folder="build")
-CORS(app)
+#Create a function to initialize the app
+def create_app():
+    """Initializes and configures the Flask app."""
+    flask_app = Flask(__name__, static_folder="build")  # ✅ Rename variable
+    CORS(flask_app)
+    return flask_app
+
+app = create_app()  # ✅ Initialize with distinct name
+
 
 # Load dataset
 FILE_PATH = os.path.join(os.path.dirname(__file__), "src/Medical.ods")
@@ -36,7 +43,7 @@ except FileNotFoundError as exc:
 class QuestionManager:
     """Manages random medical questions without repetition."""
     def __init__(self):
-        self.remaining_ids = [q["ID"] for q in questions_list]  # Store IDs 
+        self.remaining_ids = [q["ID"] for q in questions_list]  # Store IDs
     def get_random_question(self):
         """Retrieves a question using a random ID."""
         if not self.remaining_ids:  # Reset when exhausted
@@ -52,7 +59,10 @@ class AnswerManager:
     """Manages answers using the same randomly selected question ID."""
     def get_answer(self, question_id):
         """Retrieves an answer matching the provided question ID."""
-        return next((a for a in answers_list if a["ID"] == question_id), {"error": f"No answer found for ID {question_id}"})
+        return next(
+            (a for a in answers_list if a["ID"] == question_id),
+            {"error": f"No answer found for ID {question_id}"}
+            )
 
 # Instantiate managers
 question_manager = QuestionManager()
@@ -90,10 +100,6 @@ def serve_react():
     """Serves React frontend for all non-API requests."""
     return send_from_directory(app.static_folder, "index.html")
 
-#if __name__ == "__main__":
-    #PORT = int(os.getenv("PORT", "10000"))  # Default port
-    #serve(app, host="0.0.0.0", port=PORT)#
-    
 if __name__ == "__main__":
     PORT = int(os.environ.get("PORT", "8080"))  # Use Render-assigned port
     serve(app, host="0.0.0.0", port=PORT)
