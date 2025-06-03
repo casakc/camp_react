@@ -96,7 +96,8 @@ def get_answer(question_id):
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
-def serve_react(path):  # ✅ Add path parameter
+def serve_react():  # ✅ Add path parameter
+    """Serves the React frontend for all non-API requests."""
     return send_from_directory(app.static_folder, "index.html")
 
 
