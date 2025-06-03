@@ -7,6 +7,11 @@ import pandas as pd
 from flask import Flask, send_from_directory, jsonify  # ✅ Fix missing import
 from flask_cors import CORS
 from waitress import serve
+from medical import app  # Ensure this matches your app's import path
+
+port = int(os.environ.get("PORT", 10000))  # Default to 10000 if PORT is not set
+serve(app, host="0.0.0.0", port=port)
+
 
 app = Flask(__name__, static_folder="build")
 CORS(app)
