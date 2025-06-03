@@ -96,9 +96,9 @@ def get_answer(question_id):
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
-def serve_react():
-    """Serves React frontend for all non-API requests."""
+def serve_react(path):  # ✅ Add path parameter
     return send_from_directory(app.static_folder, "index.html")
+
 
 if __name__ == "__main__":
     PORT = int(os.environ.get("PORT", "8080"))  # Use Render-assigned port
