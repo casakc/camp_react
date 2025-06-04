@@ -94,11 +94,11 @@ def get_answer(question_id):
     answer_data = answer_manager.get_answer(question_id)
     return jsonify(answer_data)
 
-@app.route("/", defaults={"path": ""})
+@app.route("/", defaults={"path": "index.html"})  # ✅ Default to index.html
 @app.route("/<path:path>")
-def serve_react():  # ✅ Add path parameter
-    """Serves the React frontend for all non-API requests."""
-    return send_from_directory(app.static_folder, "index.html")
+def serve_react(path):
+    """Serves the requested React frontend file."""
+    return send_from_directory(app.static_folder, path)  # ✅ Now using 'path'
 
 
 if __name__ == "__main__":
