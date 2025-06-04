@@ -11,7 +11,7 @@ import pandas as pd
 #Create a function to initialize the app
 def create_app():
     """Initializes and configures the Flask app."""
-    flask_app = Flask(__name__, static_folder="build")  # ✅ Rename variable
+    flask_app = Flask(__name__, static_folder="build", static_url_path="/")  # ✅ Updated
     CORS(flask_app)
     return flask_app
 
@@ -99,7 +99,6 @@ def get_answer(question_id):
 def serve_react(path):
     """Serves the requested React frontend file."""
     return send_from_directory("build", path)  # ✅ Now using 'path'
-
 
 if __name__ == "__main__":
     PORT = int(os.environ.get("PORT", "8080"))  # Use Render-assigned port
