@@ -98,7 +98,7 @@ def get_answer(question_id):
 @app.route("/<path:path>")
 def serve_react(path):
     """Serves the requested React frontend file."""
-    return send_from_directory(app.static_folder, path)  # ✅ Now using 'path'
+    return send_from_directory("build", path)  # ✅ Now using 'path'
 
 
 if __name__ == "__main__":
