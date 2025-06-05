@@ -9,13 +9,17 @@ from waitress import serve
 import pandas as pd
 
 #Create a function to initialize the app
+# Get absolute path to camp_react folder
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Get current directory
+BUILD_DIR = os.path.join(BASE_DIR, "build")  # ✅ Reference correct location
+
 def create_app():
     """Initializes and configures the Flask app."""
-    flask_app = Flask(__name__, static_folder="build", static_url_path="/")  # ✅ Updated
+    flask_app = Flask(__name__, static_folder=BUILD_DIR, static_url_path="/")
     CORS(flask_app)
     return flask_app
 
-app = create_app()  # ✅ Initialize with distinct name
+app = create_app()
 
 
 # Load dataset
@@ -94,11 +98,11 @@ def get_answer(question_id):
     answer_data = answer_manager.get_answer(question_id)
     return jsonify(answer_data)
 
-@app.route("/", defaults={"path": "index.html"})  # ✅ Default to index.html
+@app.route("/", defaults={"path": "index.html"})
 @app.route("/<path:path>")
 def serve_react(path):
-    """Serves the requested React frontend file."""
-    return send_from_directory("build", path)  # ✅ Now using 'path'
+    """Serves the React frontend for all non-API requests."""
+    return send_from_directory(BUILD_DIR, path)  # ✅ Use BUILD_DIR explicitly
 
 if __name__ == "__main__":
     PORT = int(os.environ.get("PORT", "8080"))  # Use Render-assigned port
