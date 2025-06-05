@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d3ddddc4.css",
+    "main.js": "/static/js/main.c110ff35.js",
+    "static/js/453.a3df7198.chunk.js": "/static/js/453.a3df7198.chunk.js",
+    "static/media/cAMP.svg": "/static/media/cAMP.7bcc21148883a478e7670aa607086120.svg",
+    "index.html": "/index.html",
+    "main.d3ddddc4.css.map": "/static/css/main.d3ddddc4.css.map",
+    "main.c110ff35.js.map": "/static/js/main.c110ff35.js.map",
+    "453.a3df7198.chunk.js.map": "/static/js/453.a3df7198.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d3ddddc4.css",
+    "static/js/main.c110ff35.js"
+  ]
+}
