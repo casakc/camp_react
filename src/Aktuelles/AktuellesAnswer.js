@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import './AktuellesAnswer.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AktuellesHeader from './AktuellesHeader';
-import AktuellesSubheader from './AktuellesSubheader';
+import AktuellesSubheaderAnswer from './AktuellesSubheaderAnswer';
 import AktuellesBodyAnswer from './AktuellesBodyAnswer';
 import AktuellesFooter from './AktuellesFooter';
 import Navbar from '../Navbar';
@@ -18,7 +18,7 @@ export default function AktuellesAnswer() {
       <div className='container'>
        <AktuellesHeader />
       <Navbar />
-      <AktuellesSubheader />
+      <AktuellesSubheaderAnswer />
       <AktuellesBodyAnswer />
       <AktuellesFooter />
  </div>
@@ -29,5 +29,4 @@ export default function AktuellesAnswer() {
 
 
 
-        
-      
+

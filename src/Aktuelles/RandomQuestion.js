@@ -28,7 +28,6 @@ useEffect(() => {
 
   return (
     <div>
-      <h1>Frage des Tages</h1>
       {error ? <p style={{ color: "red" }}>{error}</p> : <p>{question || "❌ Frage nicht geladen!"}</p>}
     </div>
   );

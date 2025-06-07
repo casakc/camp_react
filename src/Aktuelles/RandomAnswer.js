@@ -32,7 +32,6 @@ const RandomAnswer = () => {
 
   return (
     <div>
-      <h1>Antwort des Tages</h1>
       {error ? <p style={{ color: "red" }}>{error}</p> : <p>{answer || "Lädt..."}</p>}
     </div>
   );
