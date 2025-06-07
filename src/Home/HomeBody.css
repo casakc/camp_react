@@ -21,9 +21,14 @@ background-color: #A6A7A9;
 color: white;
 }
 
-.btn:hover {
+a:hover, .btn:hover {
     background-color: white;
     color: #A6A7A9;
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }
 
 .h2, .h3, .row {

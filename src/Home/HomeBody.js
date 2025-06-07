@@ -13,14 +13,11 @@ export default function HomeBody () {
           <div className="col-3"></div>
           <div className="col-6">
           <div className="btn">
-        info@camp-books.com
+        <Link to="/kontakt">info@camp-books.com</Link>
      </div>
      </div>
           <div className="col-3"></div>
-        
         </div>
-        <Link to="/about"></Link> {/* Add Link if relevant */}
 </div>
-
     )
 }
