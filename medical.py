@@ -45,18 +45,19 @@ except FileNotFoundError as exc:
 
 # QuestionManager Class
 class QuestionManager:
-    """Manages random medical questions without repetition."""
+    """Manages random medical questions without repeating until all have been seen."""
     def __init__(self):
-        self.remaining_ids = [q["ID"] for q in questions_list]  # Store IDs
+        self.remaining_questions = questions_list.copy()  # ✅ Start with full list
+        random.shuffle(self.remaining_questions)  # ✅ Shuffle initially
+
     def get_random_question(self):
-        """Retrieves a question using a random ID."""
-        if not self.remaining_ids:  # Reset when exhausted
-            self.remaining_ids = [q["ID"] for q in questions_list]
+        """Retrieves a unique random question until all have been used, then resets."""
+        if not self.remaining_questions:  # ✅ If empty, reset the list
+            self.remaining_questions = questions_list.copy()
+            random.shuffle(self.remaining_questions)  # ✅ Shuffle on reset
 
-        selected_id = random.choice(self.remaining_ids)
-        self.remaining_ids.remove(selected_id)
+        return self.remaining_questions.pop()  # ✅ Fetch & remove instantly
 
-        return next(q for q in questions_list if q["ID"] == selected_id)
 
 # AnswerManager Class
 class AnswerManager:
@@ -81,7 +82,6 @@ def serve_aktuelles():
 @app.route("/<path:path>")
 def serve_static_files(path):
     """Serves static files (JS, CSS, images) from React's build directory."""
-    print(f"🔍 Request received for static file: {path}")  # Debugging output
     return send_from_directory(app.static_folder, path)
 
 # ✅ Add missing API route for fetching a random question
