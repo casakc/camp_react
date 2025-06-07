@@ -18,11 +18,11 @@ const AktuellesBody = ({ setQuestionId }) => {
   return (
     <div className="AktuellesBody">
       <div className="AktuellesBody-container">
-        <RandomQuestion setQuestionId={(id) => { 
+        <RandomQuestion setQuestionId={(id) => {
           setQuestionId(id);  // ✅ Update global question ID
           setLocalQuestionId(id); // ✅ Store locally for button click
-        }} />  
-        
+        }} />
+
         <button className="btn" onClick={handleButtonClick}>
           Antwort des Tages
         </button>

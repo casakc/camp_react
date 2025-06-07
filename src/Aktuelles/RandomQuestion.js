@@ -5,25 +5,26 @@ const RandomQuestion = ({ setQuestionId }) => {
   const [question, setQuestion] = useState("");
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const fetchQuestion = async () => {
-      try {
-        const response = await axios.get("https://camp-react.onrender.com/random-question");
+useEffect(() => {
+  const fetchQuestion = async () => {
+    try {
+      const response = await axios.get("https://camp-react.onrender.com/random-question");
 
-        if (!response.data || !response.data.Question) {
-          return;
-        }
-
-        setQuestion(response.data.Question);  // ✅ Stores question
-        setQuestionId(response.data.ID);      // ✅ Sends ID to AktuellesBody
-
-      } catch (err) {
-        setError("⚠️ Failed to load question!");
+      if (!response.data || !response.data.ID || !response.data.Question) {
+        setError("⚠️ Invalid response from server!");
+        return;
       }
-    };
 
-    fetchQuestion();  // ✅ Call fetch function inside `useEffect`
-  }, [setQuestionId]);
+      setQuestion(response.data.Question);
+      setQuestionId(response.data.ID);
+
+    } catch (err) {
+      setError("⚠️ Failed to load question!");
+    }
+  };
+
+  fetchQuestion();
+}, [setQuestionId]);
 
   return (
     <div>
