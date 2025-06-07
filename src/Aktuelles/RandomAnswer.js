@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom"; // Extract question ID from URL
 
 const RandomAnswer = () => {
-  const { questionId } = useParams(); // Extract questionId from route
+  const { questionId } = useParams(); // Get question ID from URL
   const [answer, setAnswer] = useState("");
   const [error, setError] = useState("");
 
@@ -13,12 +13,11 @@ const RandomAnswer = () => {
       return;
     }
 
-    console.log(`🔍 Fetching answer for questionId: ${questionId}`); // Debugging
+    console.log(`🎯 Received questionId: ${questionId}`);
 
     axios.get(`https://camp-react.onrender.com/answer/${questionId}`)
       .then(response => {
         console.log("✅ API Response:", response.data);
-
         if (response.data.Answer) {
           setAnswer(response.data.Answer);
         } else {
